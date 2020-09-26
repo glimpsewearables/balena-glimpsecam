@@ -1,10 +1,17 @@
 FROM balenalib/rpi-raspbian
 
+RUN install_packages python
+RUN install_packages RPi.GPIO
+RUN install_packages python-gpiozero
+RUN apt-get install libraspberrypi-bin -y
+RUN usermod -a -G video root
+
 RUN mkdir /app
 
 RUN addgroup pi && adduser --system --ingroup pi pi
 
 COPY pikrellcam/ /home/pi/pikrellcam/
+COPY glimpse-cam/ /home/pi/glimpse-cam/
 COPY start.sh /start.sh
 
 ENV USER=pi
